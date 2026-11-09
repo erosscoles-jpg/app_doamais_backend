@@ -6,22 +6,43 @@ import java.util.Objects;
 
 import com.doavida.doavida_api.model.entities.enums.EnrollmentStatus;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tb_enrollment")
 public class Enrollment implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idEnrollment;
-	private LocalDateTime date;
+	private LocalDateTime enrollmentDate;
+	
+	@Enumerated(EnumType.STRING)
 	private EnrollmentStatus status;
 	
+	@ManyToOne
+	@JoinColumn(name = "donor_id")
 	private Donor donor;
+	
+	@ManyToOne
+	@JoinColumn(name = "campaign_id")
 	private Campaign campaign;
 
 	public Enrollment() {
 	}
 
-	public Enrollment(Long idEnrollment, LocalDateTime date, EnrollmentStatus status, Donor donor, Campaign campaign) {
+	public Enrollment(Long idEnrollment, LocalDateTime enrollmentDate, EnrollmentStatus status, Donor donor, Campaign campaign) {
 		this.idEnrollment = idEnrollment;
-		this.date = date;
+		this.enrollmentDate = enrollmentDate;
 		this.status = status;
 		this.donor = donor;
 		this.campaign = campaign;
@@ -31,12 +52,12 @@ public class Enrollment implements Serializable {
 		return idEnrollment;
 	}
 
-	public LocalDateTime getDate() {
-		return date;
+	public LocalDateTime getEnrollmentDate() {
+		return enrollmentDate;
 	}
 
-	public void setDate(LocalDateTime date) {
-		this.date = date;
+	public void setDate(LocalDateTime enrollmentDate) {
+		this.enrollmentDate = enrollmentDate;
 	}
 
 	public EnrollmentStatus getStatus() {
