@@ -8,18 +8,40 @@ import java.util.Objects;
 import com.doavida.doavida_api.model.entities.enums.BloodType;
 import com.doavida.doavida_api.model.entities.enums.FormStatus;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tb_donor_form")
 public class DonorForm implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idForm;
 	private LocalDate birthDate;
 	private Double height;
 	private Double weight;
 	private LocalDateTime evaluationDate;
+	
+	@Column(length = 500)
 	private String observation;
+	
+	@Enumerated(EnumType.STRING)
 	private BloodType bloodType;
+	@Enumerated(EnumType.STRING)
 	private FormStatus status;
 	
+	@ManyToOne
+	@JoinColumn(name = "employee_id")
 	private Employee employee;
 	
 	public DonorForm() {
