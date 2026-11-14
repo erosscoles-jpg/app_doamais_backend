@@ -26,6 +26,10 @@ public class Donor extends User {
 		super();
 	}
 
+	public Donor(Long idUser, String userName, String email, String password) {
+	    super(idUser, userName, email, password);
+	}
+	
 	public Donor(DonorForm form, List<Enrollment> enrollments) {
 		super();
 		this.form = form;
