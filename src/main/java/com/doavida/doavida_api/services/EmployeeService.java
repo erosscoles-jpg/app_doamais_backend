@@ -21,7 +21,7 @@ public class EmployeeService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public EmployeeService(EmployeeRepository repository, UserRepository userRepository,PasswordEncoder passwordEncoder) {
+    public EmployeeService(EmployeeRepository repository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
