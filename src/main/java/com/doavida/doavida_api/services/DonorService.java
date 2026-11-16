@@ -12,17 +12,20 @@ import com.doavida.doavida_api.dto.DonorResponseDTO;
 import com.doavida.doavida_api.dto.DonorUpdateDTO;
 import com.doavida.doavida_api.model.entities.Donor;
 import com.doavida.doavida_api.repositories.DonorRepository;
+import com.doavida.doavida_api.repositories.UserRepository;
 
 @Service
 public class DonorService {
 
 	private final DonorRepository repository;
 	private final PasswordEncoder passwordEncoder;
+	private final UserRepository userRepository;
 	
-	public DonorService(DonorRepository repository, PasswordEncoder passwordEncoder) {
-		this.repository = repository;
-		this.passwordEncoder = passwordEncoder;
-	}
+	public DonorService(DonorRepository repository, PasswordEncoder passwordEncoder, UserRepository userRepository) {
+        this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
+    }
 	
 	public List<DonorResponseDTO> findAll() {
 		return repository.findAll().stream().map(DonorResponseDTO::fromEntity).toList();
@@ -33,7 +36,7 @@ public class DonorService {
 	}
 	
 	public DonorResponseDTO create(DonorCreateDTO dto) {
-		if (repository.existsByEmail(dto.email())) {
+		if (userRepository.existsByEmail(dto.email())) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, "Email já cadastrado");
 		}
 		Donor donor = new Donor(null, dto.userName(), dto.email(), passwordEncoder.encode(dto.password()));
@@ -42,7 +45,7 @@ public class DonorService {
 	
 	public DonorResponseDTO update(Long id, DonorUpdateDTO dto) {
 		Donor donor = getOrThrow(id);
-		if (!donor.getEmail().equals(dto.email()) && repository.existsByEmail(dto.email())) {
+		if (!donor.getEmail().equals(dto.email()) && userRepository.existsByEmail(dto.email())) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, "Email já cadastrado");
 		}
 		donor.setUserName(dto.userName());

@@ -28,17 +28,18 @@ public class DonorForm implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idForm;
 	private LocalDate birthDate;
+	
+	@Enumerated(EnumType.STRING)
+	private BloodType bloodType;
 	private Double height;
 	private Double weight;
+	
+	@Enumerated(EnumType.STRING)
+	private FormStatus status;
 	private LocalDateTime evaluationDate;
 	
 	@Column(length = 500)
 	private String observation;
-	
-	@Enumerated(EnumType.STRING)
-	private BloodType bloodType;
-	@Enumerated(EnumType.STRING)
-	private FormStatus status;
 	
 	@ManyToOne
 	@JoinColumn(name = "employee_id")
@@ -46,20 +47,21 @@ public class DonorForm implements Serializable {
 	
 	public DonorForm() {
 	}
-
-	public DonorForm(Long idForm, LocalDate birthDate, Double height, Double weight, LocalDateTime evaluationDate,
-			String observation, BloodType bloodType, FormStatus status, Employee employee) {
+	
+	public DonorForm(Long idForm, LocalDate birthDate, BloodType bloodType, Double height, Double weight,
+			FormStatus status, LocalDateTime evaluationDate, String observation, Employee employee) {
+		super();
 		this.idForm = idForm;
 		this.birthDate = birthDate;
+		this.bloodType = bloodType;
 		this.height = height;
 		this.weight = weight;
+		this.status = status;
 		this.evaluationDate = evaluationDate;
 		this.observation = observation;
-		this.bloodType = bloodType;
-		this.status = status;
 		this.employee = employee;
 	}
-	
+
 	public Long getIdForm() {
 		return idForm;
 	}
@@ -70,6 +72,14 @@ public class DonorForm implements Serializable {
 
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
+	}
+	
+	public BloodType getBloodType() {
+		return bloodType;
+	}
+
+	public void setBloodType(BloodType bloodType) {
+		this.bloodType = bloodType;
 	}
 
 	public Double getHeight() {
@@ -87,6 +97,14 @@ public class DonorForm implements Serializable {
 	public void setWeight(Double weight) {
 		this.weight = weight;
 	}
+	
+	public FormStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(FormStatus status) {
+		this.status = status;
+	}
 
 	public LocalDateTime getEvaluationDate() {
 		return evaluationDate;
@@ -102,22 +120,6 @@ public class DonorForm implements Serializable {
 
 	public void setObservation(String observation) {
 		this.observation = observation;
-	}
-
-	public BloodType getBloodType() {
-		return bloodType;
-	}
-
-	public void setBloodType(BloodType bloodType) {
-		this.bloodType = bloodType;
-	}
-
-	public FormStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(FormStatus status) {
-		this.status = status;
 	}
 
 	public Employee getEmployee() {
