@@ -17,7 +17,7 @@ public class Donor extends User {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "donor_form_id")
-	private DonorForm form;
+	private DonorForm donorForm;
 	
 	@OneToMany(mappedBy = "donor")
 	private List<Enrollment> enrollments = new ArrayList<>();
@@ -26,18 +26,22 @@ public class Donor extends User {
 		super();
 	}
 
-	public Donor(DonorForm form, List<Enrollment> enrollments) {
+	public Donor(Long idUser, String userName, String email, String password) {
+	    super(idUser, userName, email, password);
+	}
+	
+	public Donor(DonorForm donorForm, List<Enrollment> enrollments) {
 		super();
-		this.form = form;
+		this.donorForm = donorForm;
 		this.enrollments = enrollments;
 	}
 
-	public DonorForm getForm() {
-		return form;
+	public DonorForm getDonorForm() {
+		return donorForm;
 	}
 
-	public void setForm(DonorForm form) {
-		this.form = form;
+	public void setDonorForm(DonorForm donorForm) {
+		this.donorForm = donorForm;
 	}
 
 	public List<Enrollment> getEnrollments() {

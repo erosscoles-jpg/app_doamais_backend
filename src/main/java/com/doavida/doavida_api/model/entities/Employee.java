@@ -32,6 +32,11 @@ public class Employee extends User {
 		super();
 		this.function = function;
 	}
+	
+    public Employee(Long idUser, String userName, String email, String password, EmployeeFunction function) {
+        super(idUser, userName, email, password);
+        this.function = function;
+    }
 
 	public EmployeeFunction getFunction() {
 		return function;

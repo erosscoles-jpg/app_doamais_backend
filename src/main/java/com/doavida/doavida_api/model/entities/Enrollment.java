@@ -56,7 +56,7 @@ public class Enrollment implements Serializable {
 		return enrollmentDate;
 	}
 
-	public void setDate(LocalDateTime enrollmentDate) {
+	public void setEnrollmentDate(LocalDateTime enrollmentDate) {
 		this.enrollmentDate = enrollmentDate;
 	}
 
